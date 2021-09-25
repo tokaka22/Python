@@ -68,19 +68,19 @@ class调用同一file下的另一个func
 https://stackoverflow.com/questions/38097638/assign-external-function-to-class-variable-in-python
 '''
 
-from math import pow
-def pow_(a, b):
-    return pow(a,b)
+# from math import pow
+# def pow_(a, b):
+#     return pow(a,b)
 
-class Foo3(object):
-    '''
-    class methods都会传入self，故可以使用staticmethod限定
-    '''
-    # func = pow_ # 不行
-    # func = pow # 可以
-    func = staticmethod(pow_) # 可以
-    def __init__(self):
-        print(self.func(2,3)) # 得用self调用class attribute
+# class Foo3(object):
+#     '''
+#     class methods都会传入self，故可以使用staticmethod限定
+#     '''
+#     # func = pow_ # 不行
+#     # func = pow # 可以
+#     func = staticmethod(pow_) # 可以
+#     def __init__(self):
+#         print(self.func(2,3)) # 得用self调用class attribute
 
-f3 = Foo3()
+# f3 = Foo3()
 

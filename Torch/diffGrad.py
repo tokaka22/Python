@@ -5,13 +5,17 @@ from mpl_toolkits.mplot3d import Axes3D
 
 class Implicit(torch.autograd.Function):
     @staticmethod
-    def forward(ctx, x, y0, F, max_iter=100):
+    def forward(ctx, x, y0, F, k, max_iter=100):
         with torch.enable_grad():
             y = y0.clone().detach().requires_grad_() # 既不数据共享，也不对梯度共享，从此两个张量无关联
             xv = x.detach() # 不需要追踪导数
             opt = torch.optim.LBFGS([y], max_iter=max_iter) # 前者代表对谁求梯度（需要更新的参数）
             def reevaluate(): # 这部分LBFGS不懂
                 opt.zero_grad()
+                """
+                lambda代入
+                """
+
                 z = F(xv,y)**2
                 z.backward()
                 return z
@@ -29,7 +33,7 @@ class Implicit(torch.autograd.Function):
             y = y.detach().requires_grad_()
             z = F(xv,y)
             z.backward()
-        return -xv.grad/y.grad*output_grad, None, None, None
+        return -xv.grad/y.grad*output_grad,None,None,None
 
 def circle(x,y):
     return x**2+y**2-1
@@ -50,7 +54,8 @@ def circle(x,y):
 
 x = torch.tensor([0.5], dtype=torch.double, requires_grad=True)
 y0 = torch.tensor([0.5], dtype=torch.double)
-y= Implicit.apply(x, y0, circle)
+k = torch.tensor([0.5], dtype=torch.double)
+y= Implicit.apply(x, y0, circle ,k)
 print (y.item(), (1-0.5**2)**0.5) # 解y
 print(x)
 y.backward()
