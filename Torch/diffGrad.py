@@ -53,7 +53,7 @@ def circle(x,y):
 # ax.view_init(elev=40., azim=30)
 
 x = torch.tensor([0.5], dtype=torch.double, requires_grad=True)
-y0 = torch.tensor([0.5], dtype=torch.double)
+y0 = torch.tensor([3], dtype=torch.double)
 k = torch.tensor([0.5], dtype=torch.double)
 y= Implicit.apply(x, y0, circle ,k)
 print (y.item(), (1-0.5**2)**0.5) # 解y
@@ -61,4 +61,4 @@ print(x)
 y.backward()
 print(x.grad.shape, y.shape)
 print(x)
-print(torch.autograd.gradcheck(lambda x: Implicit.apply(x.unsqueeze(0),y0,circle), x))
+# print(torch.autograd.gradcheck(lambda x: Implicit.apply(x.unsqueeze(0),y0,circle), x))

@@ -11,14 +11,21 @@ import torch
 # ### 改变类型
 # tensor.double()
 
-# ### equal
-# a = torch.tensor([0.0])
-# print(a)
-# print(a == 0)
-# print(torch.eq(a, 0))
-# if not(torch.eq(a, 0))&(a <= 10000):
-#     print('ok')
-# print('g')
+### equal
+a = torch.tensor([0.0])
+print(a.shape)
+print(a == 0)
+print(torch.eq(a, 0))
+if not(torch.eq(a, 0))&(a <= 10000):
+    print('ok')
+print('g')
+
+b = torch.tensor(0.0)
+print(b.shape)
+print(b)
+print(b == 0)
+if b==0:
+    print("b okoko")
 
 # ### Returns the value of this tensor as a standard Python number.
 # # 标量
@@ -53,5 +60,5 @@ import torch
 # print(mask)
 # print(x[mask])
 
-### 初始化1维零向量
-print(torch.zeros(22))
+# ### 初始化1维零向量
+# print(torch.zeros(22))
